@@ -1,0 +1,74 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 70778880 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:2753), pid=17248, tid=0x00007f5850eba700
+#
+# JRE version: OpenJDK Runtime Environment (8.0_212) (build 1.8.0_212-release-1586-b4-5784211)
+# Java VM: OpenJDK 64-Bit Server VM (25.212-b4-5784211 mixed mode linux-amd64 compressed oops)
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f5864077800):  VMThread [stack: 0x00007f5850dbb000,0x00007f5850ebb000] [id=17257]
+
+Stack: [0x00007f5850dbb000,0x00007f5850ebb000],  sp=0x00007f5850eb9490,  free space=1017k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xa0b42d]  VMError::report_and_die()+0x15d
+V  [libjvm.so+0x4d48ca]  report_vm_out_of_memory(char const*, int, unsigned long, VMErrorType, char const*)+0x8a
+V  [libjvm.so+0x871e08]  os::pd_commit_memory(char*, unsigned long, unsigned long, bool)+0xd8
+V  [libjvm.so+0x8696df]  os::commit_memory(char*, unsigned long, unsigned long, bool)+0x1f
+V  [libjvm.so+0x8e36cb]  PSVirtualSpace::expand_by(unsigned long)+0x5b
+V  [libjvm.so+0x8e4320]  PSYoungGen::resize_generation(unsigned long, unsigned long)+0xb0
+V  [libjvm.so+0x8e463b]  PSYoungGen::resize(unsigned long, unsigned long)+0x1b
+V  [libjvm.so+0x8e0d4c]  PSScavenge::invoke_no_policy()+0xdac
+V  [libjvm.so+0x8e1528]  PSScavenge::invoke()+0x38
+V  [libjvm.so+0x895723]  ParallelScavengeHeap::failed_mem_allocate(unsigned long)+0x63
+V  [libjvm.so+0xa0cf54]  VM_ParallelGCFailedAllocation::doit()+0x84
+V  [libjvm.so+0xa113a7]  VM_Operation::evaluate()+0x47
+V  [libjvm.so+0xa0fda8]  VMThread::evaluate_operation(VM_Operation*)+0x218
+V  [libjvm.so+0xa10209]  VMThread::loop()+0x219
+V  [libjvm.so+0xa10652]  VMThread::run()+0x72
+V  [libjvm.so+0x86ef12]  java_start(Thread*)+0xf2
+
+VM_Operation (0x00007f580bdf6740): ParallelGCFailedAllocation, mode: safepoint, requested by thread 0x00007f5804008800
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00007f57fc929000 JavaThread "Cache worker for execution history cache (/home/vinamin/.gradle/caches/5.6.4/executionHistory)" [_thread_blocked, id=17394, stack(0x00007f5809c2b000,0x00007f5809d2c000)]
+  0x00007f57fca13800 JavaThread "Cache worker for cache directory md-rule (/home/vinamin/.gradle/caches/5.6.4/md-rule)" [_thread_blocked, id=17393, stack(0x00007f5809d2c000,0x00007f5809e2d000)]
+  0x00007f57fcab6000 JavaThread "Cache worker for cache directory md-supplier (/home/vinamin/.gradle/caches/5.6.4/md-supplier)" [_thread_blocked, id=17389, stack(0x00007f580bafb000,0x00007f580bbfc000)]
+  0x00007f57fc2d4800 JavaThread "Cache worker for file hash cache (/home/vinamin/AndroidStudioProjects/TexnoBlogSite/.gradle/5.6.4/fileHashes)" [_thread_blocked, id=17374, stack(0x00007f580aff6000,0x00007f580b0f7000)]
+  0x00007f57fc099000 JavaThread "Cache worker for journal cache (/home/vinamin/.gradle/caches/journal-1)" [_thread_blocked, id=17360, stack(0x00007f580b4f7000,0x00007f580b5f8000)]
+  0x00007f57fc045800 JavaThread "File lock request listener" [_thread_in_native, id=17342, stack(0x00007f580b5f8000,0x00007f580b6f9000)]
+  0x00007f57fc04c800 JavaThread "Cache worker for file hash cache (/home/vinamin/.gradle/caches/5.6.4/fileHashes)" [_thread_blocked, id=17341, stack(0x00007f580b6f9000,0x00007f580b7fa000)]
+  0x00007f57fc011000 JavaThread "Thread-9" [_thread_blocked, id=17337, stack(0x00007f580b7fa000,0x00007f580b8fb000)]
+  0x00007f57fc006800 JavaThread "Asynchronous log dispatcher for DefaultDaemonConnection: socket connection from /127.0.0.1:41629 to /127.0.0.1:58126" [_thread_blocked, id=17335, stack(0x00007f580bbfc000,0x00007f580bcfd000)]
+  0x00007f5804008800 JavaThread "Daemon worker" [_thread_blocked, id=17331, stack(0x00007f580bcfd000,0x00007f580bdfe000)]
+  0x00007f5804006800 JavaThread "Cancel handler" [_thread_blocked, id=17330, stack(0x00007f580bdfe000,0x00007f580beff000)]
+  0x00007f5804004000 JavaThread "Handler for socket connection from /127.0.0.1:41629 to /127.0.0.1:58126" [_thread_in_native, id=17329, stack(0x00007f580beff000,0x00007f580c000000)]
+  0x00007f580c02b800 JavaThread "Daemon" [_thread_blocked, id=17328, stack(0x00007f58180f4000,0x00007f58181f5000)]
+  0x00007f586523e000 JavaThread "Daemon periodic checks" [_thread_blocked, id=17327, stack(0x00007f58181f5000,0x00007f58182f6000)]
+  0x00007f5865218800 JavaThread "Incoming local TCP Connector on port 41629" [_thread_in_native, id=17326, stack(0x00007f58182fd000,0x00007f58183fe000)]
+  0x00007f58651a2800 JavaThread "Daemon health stats" [_thread_blocked, id=17322, stack(0x00007f5818602000,0x00007f5818703000)]
+  0x00007f58640d0000 JavaThread "Service Thread" daemon [_thread_blocked, id=17264, stack(0x00007f58503ce000,0x00007f58504cf000)]
+  

@@ -1,0 +1,2 @@
+rootProject.name='TexnoBlog Site'
+include ':app'
