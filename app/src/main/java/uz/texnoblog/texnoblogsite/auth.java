@@ -2,42 +2,37 @@ package uz.texnoblog.texnoblogsite;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-
 import javax.net.ssl.HttpsURLConnection;
 
+/**
+ * Интерфейс авторизации.
+**/
 public class auth extends AppCompatActivity {
-    public AsyncTask messages;
-    private TextView aa;
+    private TextView debug_decode_json;
     private EditText login;
 
     private String getLogin;
 
-    @SuppressLint("WrongThread")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
-        aa = findViewById(R.id.textView2);
 
+        debug_decode_json = findViewById(R.id.textView2);
 
         Button button = findViewById(R.id.buttonSend);
-
         View.OnClickListener obutton = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,33 +41,36 @@ public class auth extends AppCompatActivity {
 
                 //Поток для API
                 HttpClient httpClient = new HttpClient();
-                messages = httpClient.execute();
+                httpClient.execute();
             }
         };
-
         button.setOnClickListener(obutton);
-
     }
 
+    /**
+     * Создает отдельный поток для работы API
+     */
     public class HttpClient extends AsyncTask<Void, Void, Void> {
+        private String token = "97342e877e8af4f595395474f2fa8bf6f185a0be";
+        private String url = "https://www.texnoblog.uz/api/client/auth/";
         private static final String HEADER_AUTHORIZATION = "Authorization";
-        private static final String GET = "GET";
-        private final JsonParser jsonParser = new JsonParser();
 
         public String message = "zz";
 
-        @SuppressLint("WrongThread")
         protected Void doInBackground(Void... voids) {
             String urlParaders = "cn=Let's Encrypt Authority X3&o=Let's Encrypt&c=US";
             String output = "";
 
             try {
-                URL url = new URL("https://www.texnoblog.uz/api/client/auth/?getLogin="+getLogin);
+                URL url = new URL(this.url+"?" + "token="+this.token+
+                        "&getLogin="+getLogin);
+
                 HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
                 connection.setRequestMethod("GET");
                 //connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
                 //connection.setRequestProperty("ACCEPT-LANGUAGE", "ru-RU,ru;0.5");
                 //connection.setDoOutput(true);
+
                 //DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
                 //dStream.writeByte(Integer.parseInt(urlParaders));
                 //dStream.flush();
@@ -80,9 +78,9 @@ public class auth extends AppCompatActivity {
 
                 //int responsCode = connection.getResponseCode();
 
-                //output += responsCode;
-
                 connection.connect(); // подключаемся к ресурсу
+
+                //output += responsCode;
 
                 BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String line = "";
@@ -99,7 +97,7 @@ public class auth extends AppCompatActivity {
 
                 //output += System.getProperty("line.separator") + rensponsOutput.toString();
                 //output += rensponsOutput.toString();
-                this.message = messag+Login;
+                this.message = "Код сообщения: "+messag+" Логин: "+Login;
             } catch (IOException | NumberFormatException | JSONException e) {
                 e.printStackTrace();
                 output = "не отработал запрос ошибка: "+e;
@@ -110,7 +108,7 @@ public class auth extends AppCompatActivity {
 
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            aa.setText(this.message);
+            debug_decode_json.setText(this.message);
         }
     }
 }
