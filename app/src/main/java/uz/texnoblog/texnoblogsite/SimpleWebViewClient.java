@@ -9,10 +9,6 @@ import android.webkit.WebViewClient;
 public class SimpleWebViewClient extends WebViewClient {
     private Activity activity = null;
 
-    public SimpleWebViewClient(Activity activity) {
-        this.activity = activity;
-    }
-
     @Override
     public boolean shouldOverrideUrlLoading(WebView webView, String url) {
         // все ссылки, в которых содержится 'javadevblog.com'
@@ -27,4 +23,6 @@ public class SimpleWebViewClient extends WebViewClient {
     }
 
 
+    public void shouldOverrideUrlLoading(String url) {
+    }
 }

@@ -17,10 +17,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         WebView browser = findViewById(R.id.webBrowser);
-        SimpleWebViewClient webViewClient = new SimpleWebViewClient(this);
+        browser.getSettings().setJavaScriptEnabled(true);
+        SimpleWebViewClient webViewClient = new SimpleWebViewClient();
         browser.setWebViewClient(webViewClient);
         browser.loadUrl("https://www.texnoblog.uz");
-        browser.getSettings().setJavaScriptEnabled(true);
     }
 
     @Override
