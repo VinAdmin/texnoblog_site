@@ -9,7 +9,7 @@ android {
         applicationId "uz.texnoblog.texnoblogsite"
         minSdkVersion 19
         versionCode 1
-        versionName "0.1"
+        versionName "0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         targetSdkVersion 28

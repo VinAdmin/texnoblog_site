@@ -20,7 +20,20 @@ public class MainActivity extends AppCompatActivity {
         browser.getSettings().setJavaScriptEnabled(true);
         SimpleWebViewClient webViewClient = new SimpleWebViewClient();
         browser.setWebViewClient(webViewClient);
-        browser.loadUrl("https://www.texnoblog.uz");
+
+        Intent intent = getIntent();
+        try{
+            String success = intent.getStringExtra("success");
+            String token = intent.getStringExtra("token");
+
+            if(success.equals("SUCCESS")){
+                browser.loadUrl("https://www.texnoblog.uz/api/client/checktoken/?token="+token);
+                User.success = "NO";
+            }
+        }
+        catch (Exception e){
+            browser.loadUrl("https://www.texnoblog.uz");
+        }
     }
 
     @Override

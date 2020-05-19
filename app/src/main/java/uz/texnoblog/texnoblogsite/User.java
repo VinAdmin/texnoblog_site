@@ -2,8 +2,15 @@ package uz.texnoblog.texnoblogsite;
 
 public class User {
     public String id;
+    private static String token;
+    public static String success = "NO";
 
-    public User(String messages) {
-        id = messages;
+    public void setTokent(String token){
+        User.token = token;
+        return;
+    }
+
+    public String getToken(){
+        return User.token;
     }
 }
