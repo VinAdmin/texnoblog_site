@@ -18,4 +18,9 @@
         android:orderInCategory="3"
         android:title="Выйти из профиля"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_registration"
+        android:orderInCategory="4"
+        android:title="Регистрация"
+        app:showAsAction="never" />
 </menu>

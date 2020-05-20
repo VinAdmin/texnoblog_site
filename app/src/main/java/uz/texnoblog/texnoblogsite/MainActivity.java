@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
             menu.getItem(0).setVisible(true);
             menu.getItem(1).setVisible(false);
             menu.getItem(2).setVisible(false);
+            menu.getItem(3).setVisible(true);
         }
         return super.onCreateOptionsMenu(menu);
     }
@@ -107,6 +108,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent3 = new Intent(this, MainActivity.class);
                 startActivity(intent3);
                 finish();
+                return true;
+            case R.id.action_registration :
+                Intent intent4 = new Intent(this, Registration.class);
+                startActivity(intent4);
                 return true;
         }
         return super.onOptionsItemSelected(item);
