@@ -1,7 +1,6 @@
 package uz.texnoblog.texnoblogsite;
 
 public class User {
-    public String id;
     private static String token;
     public static String success = "NO";
 
@@ -11,6 +10,11 @@ public class User {
     }
 
     public String getToken(){
-        return User.token;
+        if(User.token.length() != 0) {
+            return User.token ;
+        }
+        else{
+            return null;
+        }
     }
 }

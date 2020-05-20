@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,8 +16,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -33,6 +37,10 @@ public class auth extends AppCompatActivity {
     private String getLogin;
     private String getPassword;
     private String finish = null;
+
+    public auth(){
+
+    }
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -70,6 +78,33 @@ public class auth extends AppCompatActivity {
         };
 
         enter.setOnClickListener(buttonEnter);
+    }
+
+    final String FILE = "settings.json";
+    final String LOG_TAG = "myLogs";
+
+    /**
+     * Сохранение настроик в файл.
+     *
+     * @param token
+     */
+    public void WriteFile(String token)
+    {
+        String text = "{ \"token\":"+token+" }";
+        try {
+            // отрываем поток для записи
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+                    openFileOutput(FILE, MODE_PRIVATE)));
+            // пишем данные
+            bw.write(text);
+            // закрываем поток
+            bw.close();
+            Log.d(LOG_TAG, "Файл записан");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -133,10 +168,11 @@ public class auth extends AppCompatActivity {
                 String success = "SUCCESS";
                 if(messag.equals(success)) {
                     String cookie = json.getString("cookie");
-                    String u_token = json.getString("u_token");
+                    String u_token = json.getString("u_token"); //Токен полученый от сайта и привязан к пользователю.
                     this.u_token = u_token;
                     User usr = new User();
                     usr.setTokent(this.u_token);
+                    WriteFile(u_token); //Запись в файл.
                     message = "Код сообщения: "+messag+this.u_token;
                 }
                 if(messag.equals("NO LOGIN"))
